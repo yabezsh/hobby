@@ -101,15 +101,19 @@ void countWords(ifstream& file, map<string,int>& dict, vector<string> my_vocablu
 }
 }
 
-int main(){
+int main(int argc, char* argv[]){
+  	 if (argc < 2) {
+        	std::cerr << "Usage: " << argv[0] << " <name of analysed file in .txt format>" << std::endl;
+       		return 1;
+   	 }
+	const char* bookName = argv[1];
 	map <string,int> dictionary;
 	string line;
-	const char* a = "five";
 	ifstream bookFile;
 	vector<PairVect> sortedWords;
 	vector<string> my_vocabluary;
 	my_vocabluary=readFileToVector();
-	bookFile.open("book.txt");
+	bookFile.open(bookName);
 	if(bookFile.is_open()){
 		while(getline(bookFile,line))
 		{	
