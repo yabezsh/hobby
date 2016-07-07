@@ -22,16 +22,12 @@ vector<string> readFileToVector()
 	return inputWords;
 }
 
-//bool checkWord(char* filename, string* search)
-bool checkWord(const char* search)
-{
-	vector<string> v;
-	v.push_back("one");
-	v.push_back("two");
-	v.push_back("three");
-	if(find(v.begin(),v.end(),search)!=v.end()){cout<<"FIND it!"<<endl;}
-	else{cout<<"nothing is found :("<<endl;}
-                
+bool checkWord(vector<string> words, const char* search)
+{	
+	bool inVocab;
+	if(find(words.begin(),words.end(),search)!=words.end()){inVocab=1;}
+	else{inVocab=0;}
+	return inVocab;        
 }
 
 
@@ -91,13 +87,14 @@ string convertToLower(string str)
 	return str;
 }
 
-void countWords(ifstream& file, map<string,int>& dict)
+void countWords(ifstream& file, map<string,int>& dict, vector<string> my_vocabluary)
 {
 	string s;
 	vector<string> separatedWords;
 	while(file>>s){
 		s = convertToLower(s);
 		noCharact(s,separatedWords);
+		if(checkWord(my_vocabluary,s.c_str())==1) continue;	
 		for(vector<string>::size_type it = 0; it!=separatedWords.size(); ++it){
 			++dict[separatedWords[it]];
 }
@@ -108,21 +105,21 @@ int main(){
 	map <string,int> dictionary;
 	string line;
 	const char* a = "five";
-	checkWord(a);
 	ifstream bookFile;
 	vector<PairVect> sortedWords;
+	vector<string> my_vocabluary;
+	my_vocabluary=readFileToVector();
 	bookFile.open("book.txt");
 	if(bookFile.is_open()){
 		while(getline(bookFile,line))
 		{	
-		 countWords(bookFile,dictionary);
+		 countWords(bookFile,dictionary,my_vocabluary);
 		}
 	}
 	else cout<<"Unable to open file" <<endl;
 	bookFile.close();
 	sortedWords=sort_by_weight(dictionary);
 	writeStatToFile(sortedWords);
-readFileToVector();
 	for(StrIntMap::iterator it = dictionary.begin(); it!=dictionary.end(); ++it){
 		cout<<it->first<<" occured "<<it->second<<" times. \n";
 	}
