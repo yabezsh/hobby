@@ -9,16 +9,6 @@ typedef std::map<std::string, int> StrIntMap;
 
 using namespace std;
 
-vector<pair<char, int> > sort(StrIntMap dict){
-	vector<pair<char, int> > dictVect;//{dict.begin(),dict.end()};
-	for(StrIntMap::iterator it=dict.begin();it!=dict.end();++it)
-	{
-//		dictVect.push_back(*it);
-	}
-	
-} 
-
-
 void noCharact(string str, vector<string>& vect){
 	vect.clear();
 	
@@ -64,7 +54,7 @@ int main(){
 	if(bookFile.is_open()){
 		while(getline(bookFile,line))
 		{	
-		countWords(bookFile,dictionary);
+		 countWords(bookFile,dictionary);
 		}
 	}
 	else cout<<"Unable to open file" <<endl;
