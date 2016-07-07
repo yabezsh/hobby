@@ -94,8 +94,8 @@ void countWords(ifstream& file, map<string,int>& dict, vector<string> my_vocablu
 	while(file>>s){
 		s = convertToLower(s);
 		noCharact(s,separatedWords);
-		if(checkWord(my_vocabluary,s.c_str())==1) continue;	
 		for(vector<string>::size_type it = 0; it!=separatedWords.size(); ++it){
+			if(checkWord(my_vocabluary,separatedWords[it].c_str())==1) continue;
 			++dict[separatedWords[it]];
 }
 }
