@@ -27,14 +27,10 @@ void writeStatToFile( const std::vector<PairVect>& vec )
 {
     ofstream output_file;
     output_file.open("wordsAnalysis.txt");
-    std::vector<PairVect>::const_iterator vec_it = vec.begin();
-    std::cout << std::endl;
-    for ( ; vec_it != vec.end(); vec_it++ )
+    for ( vector<PairVect>::const_iterator vec_it = vec.begin(); vec_it != vec.end(); vec_it++ )
     {
-        std::string s = (*vec_it).first;
-        double weight = (*vec_it).second;
-        output_file<< s << " "
-                  << weight   << std::endl;
+        output_file<< (*vec_it).second << " "
+                  << (*vec_it).first   << std::endl;
     }
     output_file.close();
 }
