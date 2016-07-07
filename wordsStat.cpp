@@ -6,10 +6,34 @@
 #include <map>
 #include <stdio.h>
 #include <algorithm>	// for sort() function
+#include <iterator>
 typedef std::map<std::string, int> StrIntMap;
 typedef std::pair<std::string, int> PairVect;
+//typedef std::istream_iterator<char> istream_iterator;
 
 using namespace std;
+
+vector<string> readFileToVector()
+{
+	ifstream fileOfknownWords("my_vocabluary.txt");
+        vector<string> inputWords;
+	fileOfknownWords >> skipws;
+	copy(istream_iterator<string>(fileOfknownWords),istream_iterator<string>() ,back_inserter(inputWords));
+	return inputWords;
+}
+
+//bool checkWord(char* filename, string* search)
+bool checkWord(const char* search)
+{
+	vector<string> v;
+	v.push_back("one");
+	v.push_back("two");
+	v.push_back("three");
+	if(find(v.begin(),v.end(),search)!=v.end()){cout<<"FIND it!"<<endl;}
+	else{cout<<"nothing is found :("<<endl;}
+                
+}
+
 
 
 //we create template class. That means we should not define some specific type as input for function. but when we call this class (structure) we should define in <> brackets which type of inputs will be there.
@@ -83,6 +107,8 @@ void countWords(ifstream& file, map<string,int>& dict)
 int main(){
 	map <string,int> dictionary;
 	string line;
+	const char* a = "five";
+	checkWord(a);
 	ifstream bookFile;
 	vector<PairVect> sortedWords;
 	bookFile.open("book.txt");
@@ -96,6 +122,7 @@ int main(){
 	bookFile.close();
 	sortedWords=sort_by_weight(dictionary);
 	writeStatToFile(sortedWords);
+readFileToVector();
 	for(StrIntMap::iterator it = dictionary.begin(); it!=dictionary.end(); ++it){
 		cout<<it->first<<" occured "<<it->second<<" times. \n";
 	}
