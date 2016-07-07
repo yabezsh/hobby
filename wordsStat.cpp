@@ -23,24 +23,26 @@ struct less_second : std::binary_function<T,T,bool>
 };
 
 
-void PrintSorted( const std::vector<PairVect>& vec )
+void writeStatToFile( const std::vector<PairVect>& vec )
 {
+    ofstream output_file;
+    output_file.open("wordsAnalysis.txt");
     std::vector<PairVect>::const_iterator vec_it = vec.begin();
     std::cout << std::endl;
     for ( ; vec_it != vec.end(); vec_it++ )
     {
         std::string s = (*vec_it).first;
         double weight = (*vec_it).second;
-        std::cout << s << " "
+        output_file<< s << " "
                   << weight   << std::endl;
     }
+    output_file.close();
 }
 
 vector<PairVect > sort_by_weight(StrIntMap& s_map)
 {
 	std::vector<PairVect> vec(s_map.begin(), s_map.end());
 	std::sort(vec.begin(),vec.end(),less_second<PairVect>());
-	PrintSorted(vec);
 	return vec;
 }
 
@@ -86,6 +88,7 @@ int main(){
 	map <string,int> dictionary;
 	string line;
 	ifstream bookFile;
+	vector<PairVect> sortedWords;
 	bookFile.open("book.txt");
 	if(bookFile.is_open()){
 		while(getline(bookFile,line))
@@ -95,7 +98,8 @@ int main(){
 	}
 	else cout<<"Unable to open file" <<endl;
 	bookFile.close();
-	sort_by_weight(dictionary);
+	sortedWords=sort_by_weight(dictionary);
+	writeStatToFile(sortedWords);
 	for(StrIntMap::iterator it = dictionary.begin(); it!=dictionary.end(); ++it){
 		cout<<it->first<<" occured "<<it->second<<" times. \n";
 	}
