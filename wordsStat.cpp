@@ -68,7 +68,7 @@ void noCharact(string str, vector<string>& vect){
 	
 	char *cstr=new char[str.length()+1];
 	strcpy(cstr,str.c_str());
-	for(char *ptr=strtok(cstr," ,.-:");ptr!=NULL;ptr=strtok(NULL," ,.-:")){
+	for(char *ptr=strtok(cstr," ,.-:!?;/\" (){}[]'");ptr!=NULL;ptr=strtok(NULL," ,.-:")){
 		vect.push_back(ptr);
 	}	
 	if(vect.empty()){ vect.push_back(str);}
