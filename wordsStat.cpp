@@ -43,14 +43,15 @@ struct less_second : std::binary_function<T,T,bool>
 };
 
 
-void writeStatToFile( const std::vector<PairVect>& vec )
+void writeStatToFile(const std::vector<PairVect>& vec,const char* fileName = "wordsAnalysis.txt",bool justWords=1 )
 {
     ofstream output_file;
-    output_file.open("wordsAnalysis.txt");
+    output_file.open(fileName);
     for ( vector<PairVect>::const_iterator vec_it = vec.begin(); vec_it != vec.end(); vec_it++ )
     {
-        output_file<< (*vec_it).second << " "
-                  << (*vec_it).first   << std::endl;
+        if(justWords){output_file<<  (*vec_it).first   << std::endl;}
+	else {output_file<< (*vec_it).second << " "
+                  << (*vec_it).first   << std::endl;}
     }
     output_file.close();
 }

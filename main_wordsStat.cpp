@@ -22,7 +22,8 @@ int main(int argc, char* argv[]){
         bookFile.close();
         sortedWords=sort_by_weight(dictionary);
         writeStatToFile(sortedWords);
+        writeStatToFile(sortedWords,"listOfwordsForQT.txt",1);
         for(StrIntMap::iterator it = dictionary.begin(); it!=dictionary.end(); ++it){
-                cout<<it->first<<" occured "<<it->second<<" times. \n";
-        }
+//                cout<<it->first<<" occured "<<it->second<<" times. \n";
+      }
 }
