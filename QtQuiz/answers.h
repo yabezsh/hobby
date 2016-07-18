@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <vector>
+#include "question.h"
 class QPushButton;
 class Answers : public QWidget
 {
