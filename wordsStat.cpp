@@ -13,9 +13,9 @@ typedef std::pair<std::string, int> PairVect;
 
 using namespace std;
 
-vector<string> readFileToVector()
+vector<string> readFileToVector(const char* fileName = "my_vocabluary.txt")
 {
-	ifstream fileOfknownWords("my_vocabluary.txt");
+	ifstream fileOfknownWords(fileName);
         vector<string> inputWords;
 	fileOfknownWords >> skipws;
 	copy(istream_iterator<string>(fileOfknownWords),istream_iterator<string>() ,back_inserter(inputWords));
@@ -77,7 +77,7 @@ void noCharact(string str, vector<string>& vect){
 
 string convertToLower(string str)
 {
-	for(int iStr=0;iStr<str.length();iStr++)
+	for(unsigned int iStr=0;iStr<str.length();iStr++)
 	{	
 		if(str[iStr] != ' ')
 		{
@@ -101,30 +101,3 @@ void countWords(ifstream& file, map<string,int>& dict, vector<string> my_vocablu
 }
 }
 
-int main(int argc, char* argv[]){
-  	 if (argc < 2) {
-        	std::cerr << "Usage: " << argv[0] << " <name of analysed file in .txt format>" << std::endl;
-       		return 1;
-   	 }
-	const char* bookName = argv[1];
-	map <string,int> dictionary;
-	string line;
-	ifstream bookFile;
-	vector<PairVect> sortedWords;
-	vector<string> my_vocabluary;
-	my_vocabluary=readFileToVector();
-	bookFile.open(bookName);
-	if(bookFile.is_open()){
-		while(getline(bookFile,line))
-		{	
-		 countWords(bookFile,dictionary,my_vocabluary);
-		}
-	}
-	else cout<<"Unable to open file" <<endl;
-	bookFile.close();
-	sortedWords=sort_by_weight(dictionary);
-	writeStatToFile(sortedWords);
-	for(StrIntMap::iterator it = dictionary.begin(); it!=dictionary.end(); ++it){
-		cout<<it->first<<" occured "<<it->second<<" times. \n";
-	}
-}
