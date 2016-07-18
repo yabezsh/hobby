@@ -10,13 +10,12 @@ class Answers : public QWidget
 {
    Q_OBJECT
    public:
-	explicit Answers(QWidget *parent);
+	explicit Answers(int questionNumber,QWidget *parent);
 	void setName(int buttonNumber=0,const char* textName="" ){answer[buttonNumber]->setText(textName);}
    signals:
    private slots:
    private:
 	QPushButton *answer[4];
-        void ListOfAnswers(std::vector<std::string>& translation);
-	const char* answerOption[10];
+	int rightAnswer;
 };
 #endif // ANSWERS_H

@@ -11,10 +11,12 @@ class Question : public QWidget
 	explicit Question(QWidget *parent);
 	Question(){};
 	void GetListOfWords(std::vector<std::string> &translation);
+	int GetQuestionNumber(){return questionNumber;}
    private:
 	QLabel *question;
 	std::vector<std::string> translation;
 	void ListOfWords(std::vector<std::string>& translation);
+	int questionNumber;
 };
 
 #endif
